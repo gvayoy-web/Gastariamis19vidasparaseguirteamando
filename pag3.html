@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Capítulo 3 | El Parque de Diversiones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;1,400&family=Montserrat:wght@200;400;600&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-final: #05070a;
+            --soft-gold: #c5a059;
+            --white: #ffffff;
+            --gray-text: #b8b8b8;
+            --polaroid-white: #fdfdfd;
+            --gold-glow: rgba(197, 160, 89, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-final);
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(197, 160, 89, 0.08) 0%, transparent 60%),
+                linear-gradient(rgba(47, 55, 68, 0.95), rgba(5, 7, 10, 0.98)), 
+                url('https://i.pinimg.com/736x/69/82/40/698240bde5d4ddf2b2754db2f201399e.jpg');
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 450px; /* Optimizado para móvil */
+            gap: 35px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Polaroid Mejorada */
+        .polaroid-wrapper {
+            position: relative;
+            transform: rotate(-2deg);
+            z-index: 10;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+        }
+
+        .clip {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 50px;
+            background: linear-gradient(135deg, #d1d1d1 0%, #8e8e8e 100%);
+            border-radius: 4px;
+            z-index: 20;
+            box-shadow: 1px 2px 4px rgba(0,0,0,0.4);
+        }
+
+        .clip::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px;
+            height: 25px;
+            border: 2px solid #666;
+            border-radius: 2px;
+        }
+
+        .polaroid {
+            background: var(--polaroid-white);
+            padding: 12px 12px 50px 12px;
+            width: 260px; /* Tamaño ideal móvil */
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            filter: contrast(1.05) saturate(0.9);
+            background: #f0f0f0;
+        }
+
+        .polaroid-caption {
+            font-family: 'Nothing You Could Do', cursive;
+            color: #2c2c2c;
+            font-size: 1.1rem;
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        /* Texto y Estilo */
+        .main-card {
+            text-align: center;
+            width: 100%;
+        }
+
+        .location-tag {
+            font-size: 0.65rem;
+            letter-spacing: 5px;
+            color: var(--soft-gold);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 2.2rem;
+            font-style: italic;
+            font-weight: 400;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+        }
+
+        .story-box {
+            padding: 0 10px;
+            margin-bottom: 40px;
+        }
+
+        p {
+            font-weight: 300;
+            line-height: 1.7;
+            font-size: 1rem;
+            color: var(--gray-text);
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--soft-gold);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        /* Botones Mobile-Friendly */
+        .button-group {
+            display: flex;
+            flex-direction: column; /* Apilados en móvil para mejor click */
+            gap: 15px;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .btn {
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 18px;
+            text-align: center;
+            transition: 0.3s all;
+            border: 1px solid var(--soft-gold);
+            width: 100%;
+        }
+
+        .btn-rewind {
+            color: var(--soft-gold);
+            background: transparent;
+            opacity: 0.7;
+        }
+
+        .btn-next {
+            color: var(--bg-final);
+            background: var(--soft-gold);
+            font-weight: 600;
+            box-shadow: 0 10px 20px var(--gold-glow);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Luces de ambiente */
+        .light {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: var(--soft-gold);
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Luces sutiles en las esquinas -->
+    <div class="light" style="top: 10%; left: 5%;"></div>
+    <div class="light" style="top: 30%; right: 10%;"></div>
+    <div class="light" style="bottom: 20%; left: 15%;"></div>
+
+    <div class="main-container">
+        <!-- Polaroid -->
+        <div class="polaroid-wrapper">
+            <div class="clip"></div>
+            <div class="polaroid">
+                <img src="ayuda.jpeg" alt="Recuerdo">
+                <div class="polaroid-caption">8 de Enero ✨</div>
+            </div>
+        </div>
+
+        <!-- Mensaje -->
+        <div class="main-card">
+            <span class="location-tag">Capítulo Final</span>
+            <h2>Nuestra Historia</h2>
+
+            <div class="story-box">
+                <p>
+                    Entre las luces y el sonido de los juegos, el mundo parecía ir más rápido, pero para mí, <span class="highlight">todo se detuvo</span> cuando te miré, Hermosa como siempre, con esa sonrisa que iluminaba incluso la noche más oscura.
+                </p>
+                <p>
+                    Ya no era suficiente ser amigos. Esa noche decidí que quería ser quien tomara tu mano en esta y en todas las vidas que nos quedan, si el destino así lo permite, y así te lo pedí, con el corazón en la mano y la esperanza brillando en mis ojos.
+                </p>
+                <p>
+                    Te lo dije con el corazón latiendo a mil, y cuando dijiste que sí, nuestra propia historia realmente comenzó, Te amo
+                </p>
+            </div>
+
+            <div class="button-group">
+                <a href="final.html" class="btn btn-next">Continuar el viaje</a>
+                <a href="pag2.html" class="btn btn-rewind">Volver atrás</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

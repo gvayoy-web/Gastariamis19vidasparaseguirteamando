@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo 2 | El Despertar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;600&family=Libre+Barcode+128&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #080808;
+            --gold: #c5a059;
+            --ticket-paper: #121214;
+            --ticket-border: rgba(197, 160, 89, 0.4);
+            --white: #e0e0e0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--white);
+            font-family: 'Cormorant Garamond', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* --- FONDO ATMOSFÉRICO --- */
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #080808 100%);
+            z-index: -1;
+        }
+
+        /* --- TICKET MASTER CONTAINER --- */
+        .ticket-wrapper {
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.7));
+            animation: ticketIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .ticket-main {
+            background: var(--ticket-paper);
+            border: 1px solid var(--ticket-border);
+            position: relative;
+            padding: 40px;
+            overflow: hidden;
+            /* Textura de papel */
+            background-image: linear-gradient(30deg, rgba(255,255,255,0.02) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.02) 87.5%, rgba(255,255,255,0.02));
+        }
+
+        /* Agujeros laterales (Corte de Ticket) */
+        .cutout {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: var(--bg-dark);
+            border-radius: 50%;
+            z-index: 10;
+        }
+        .cut-left  { left: -20px; top: 50%; transform: translateY(-50%); border-right: 1px solid var(--ticket-border); }
+        .cut-right { right: -20px; top: 50%; transform: translateY(-50%); border-left: 1px solid var(--ticket-border); }
+
+        /* --- DETALLES TÉCNICOS --- */
+        .ticket-data {
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+            padding-bottom: 15px;
+        }
+
+        /* --- IMAGEN Y TEXTO --- */
+        .chapter-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .chapter-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 8px;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-style: italic;
+            font-weight: 400;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .story-content {
+            display: flow-root;
+        }
+
+        .visual-circle {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            float: left;
+            margin: 0 30px 10px 0;
+            border: 1px solid var(--gold);
+            padding: 5px;
+            background: var(--bg-dark);
+        }
+
+        .visual-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            filter: sepia(30%) brightness(0.9);
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            color: #bbb;
+        }
+
+        .highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* --- FOOTER DEL TICKET --- */
+        .ticket-footer {
+            margin-top: 40px;
+            border-top: 1px dashed var(--ticket-border);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .barcode {
+            font-family: 'Libre Barcode 128', cursive;
+            font-size: 3rem;
+            color: var(--white);
+            opacity: 0.5;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.7rem;
+            color: var(--bg-dark);
+            background: var(--gold);
+            padding: 12px 25px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #fff;
+            transform: scale(1.05);
+        }
+
+        /* --- ANIMACIÓN --- */
+        @keyframes ticketIn {
+            0% { opacity: 0; transform: rotate(-2deg) translateY(50px); }
+            100% { opacity: 1; transform: rotate(0deg) translateY(0); }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .ticket-main { padding: 30px 20px; }
+            .visual-circle { 
+                float: none; 
+                margin: 0 auto 30px; 
+                width: 200px; 
+                height: 200px;
+            }
+            .ticket-data { flex-direction: column; gap: 5px; text-align: center; }
+            .ticket-footer { flex-direction: column; gap: 20px; }
+            h2 { font-size: 2.2rem; }
+            p { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-bg"></div>
+
+    <div class="ticket-wrapper">
+        <div class="cutout cut-left"></div>
+        <div class="cutout cut-right"></div>
+
+        <article class="ticket-main">
+            <div class="ticket-data">
+                <span>Cinema: Dec 8 Night</span>
+                <span>Rom: 2 | Movie: FNAF</span>
+                <span>Time: 2:20 PM</span>
+            </div>
+
+            <div class="chapter-info">
+                <span class="chapter-number">Episodio 2</span>
+                <h2>Si los lazos no se rompen, el destino se encargará de reunirnos de nuevo.</h2>
+            </div>
+
+            <div class="story-content">
+                <div class="visual-circle">
+                    <img src="Wallpaper see you in my 19th life.jpg" alt="Recuerdo">
+                </div>
+                
+                <p>
+                    Aquel 8 de diciembre no fue un día cualquiera. Fuimos al cine, como dos amigos más, a ver una pelicula muy linda. La luz de la pantalla proyectaba sombras en tu rostro y, por primera vez, no pude concentrarme en la trama.
+                </p>
+
+                <p>
+                   Eras tan hermosa, que mis ojos se concentraron en verte. <span class="highlight">El aire se sintió diferente, cargado de una electricidad silenciosa, Como si hubieramos Conectado al instante.</span> Entre risas compartidas y susurros , nuestras miradas empezaron a durar un segundo más de lo normal.
+                </p>
+
+                <p>
+                    El coqueteo, ese que jurabas que no pasaría, floreció en el momento menos pensado. Supe que mi 19.ª vida ya no podía seguir siendo la misma. Ya no eras solo mi amiga; eras el destino alcanzándome.
+                </p>
+            </div>
+
+            <footer class="ticket-footer">
+                <div class="barcode">Pasaria mis 19 vidas contigo</div>
+                 
+                <a href="pag1.html" class="nav-btn">← Rebobinar</a>
+                <a href="pag3.html" class="nav-btn">Siguiente Capítulo →</a>
+
+            </footer>
+        </article>
+    </div>
+
+</body>
+</html>
